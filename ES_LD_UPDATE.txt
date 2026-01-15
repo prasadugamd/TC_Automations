@@ -1,0 +1,26 @@
+
+oc get po|grep -E 'cr|fr|rb'|awk '{print $1}'
+kc describe po cr2-6bb799b449-sp6m5|grep Labels|awk '{print $2}'|awk -F "=" '{print $2}'
+kubectl exec -it -c <container> <new_pod_name> -- /bin/ksh ls -la ~/.active-processes cat ~/.active-processes
+
+
+value=$(cat .active-proccesses)
+
+part1=$(echo "$value" | awk -F'_' '{print $1}')
+part2=$(echo "$value" | awk -F'_' '{print $2}')
+
+echo "$part1"   # ES
+echo "$part2"   # CR31914
+
+kubectl exec -it $pod -- ADJ1_Send_Admin_Command_Sh $pod $part1 $part2 "REFRESH_LOGICAL_DATE_COMMAND"
+
+/home/xpiwrk1/local-var/apr/log/ES_RB31909/20260101_032718/ADJ1_ES_Daemon_inner_Sh_ES_RB31909_20260101_032719.log
+[2026-01-01 03:27:19.0000] TimeManager 0x625f920: (INIT) Version 10.131210.02. - Local Time + Dayli
+ght saving + Deprecate public getTimeSinceBoot
+[2026-01-01 03:27:19.0000] TimeManager 0x625f920: (INIT) Time since Boot - 9116302251389402. Gap to
+ epoch time - 1758114537545602492. Local time GAP - 7200
+[2026-01-01 03:27:19.0000] TimeManager 0x625f920: Logical time is configured to work with:
+Local time as logical date
+
+ADJ1_Send_Admin_Command_Sh rb1-6549d79cd-mv7rf ES_RB31909 "REFRESH_LOGICAL_DATE_COMMAND"
+ADJ1_Send_Admin_Command_Sh db2e-guiding-584f898cb7-msdxw DB2E 29 "REFRESH_LOGICAL_DATE_COMMAND"
