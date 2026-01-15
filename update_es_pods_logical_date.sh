@@ -2,6 +2,7 @@
 
 # Script to update logical date for all CR, FR, and RB pods
 # This script loops through all matching pods and refreshes their logical date
+# Author: Prasadu Gamini
 
 set -e
 
