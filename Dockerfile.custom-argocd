@@ -1,0 +1,22 @@
+# Custom Argo CD Dockerfile with OCI CLI for OKE Integration
+# Extends the base Argo CD image to include OCI CLI for generating OKE access tokens
+
+FROM argoproj/argocd:latest
+
+# Install OCI CLI
+RUN apt-get update && apt-get install -y python3 python3-pip && \
+    pip3 install oci-cli && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set environment variables for OCI authentication (example; customize as needed)
+# ENV OCI_CLI_CONFIG_FILE=/app/config
+# ENV OCI_CLI_PROFILE=default
+
+# Copy any additional configs if needed (e.g., OCI config files)
+# COPY oci-config /app/config
+
+# Ensure Argo CD runs with necessary permissions
+USER argocd
+
+# Default command
+CMD ["argocd-server"]
