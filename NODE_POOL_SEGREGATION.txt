@@ -1,0 +1,145 @@
+NODE POOL SEGREGATION BY OCPU AND RAM
+=====================================
+Date: January 16, 2026
+Source: PRD Deployment Configuration
+
+SUMMARY
+-------
+Total Instances: 93
+Total Node Pools: 9 unique configurations
+
+
+NODE POOL DETAILS
+-----------------
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ NODE POOL 1: 1 OCPU / 8 GB RAM                                                 │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ Total Instances: 2                                                              │
+│                                                                                 │
+│ Instance Breakdown:                                                             │
+│   • PRD MS360 A3S PG DB (MS360)          : 2 instances                          │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ NODE POOL 2: 2 OCPU / 8 GB RAM                                                 │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ Total Instances: 3                                                              │
+│                                                                                 │
+│ Instance Breakdown:                                                             │
+│   • PRD MS360 MSG BUS KRaft (MS360)      : 3 instances                          │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ NODE POOL 3: 2 OCPU / 16 GB RAM                                                │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ Total Instances: 4                                                              │
+│                                                                                 │
+│ Instance Breakdown:                                                             │
+│   • PRD Ops Infra nodes (MS360)          : 3 instances                          │
+│   • PRD MSG BUS control center (OPS)     : 1 instance                           │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ NODE POOL 4: 2 OCPU / 32 GB RAM                                                │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ Total Instances: 13                                                             │
+│                                                                                 │
+│ Instance Breakdown:                                                             │
+│   • PRD PG Bouncer (OPS)                 : 1 instance                           │
+│   • PRD Charging IMDG PW (Charging)      : 6 instances                          │
+│   • PRD Charging IMDG Locator (Charging) : 6 instances                          │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ NODE POOL 5: 4 OCPU / 32 GB RAM                                                │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ Total Instances: 3                                                              │
+│                                                                                 │
+│ Instance Breakdown:                                                             │
+│   • PRD MS360 Monitoring (MS360)         : 2 instances                          │
+│   • PRD MS360 MSG BUS Operator (MS360)   : 1 instance                           │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ NODE POOL 6: 4 OCPU / 64 GB RAM                                                │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ Total Instances: 5                                                              │
+│                                                                                 │
+│ Instance Breakdown:                                                             │
+│   • PRD MS360 Data Plane (MS360)         : 2 instances                          │
+│   • PRD MS360 Logging Tracing (MS360)    : 3 instances                          │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ NODE POOL 7: 4 OCPU / 128 GB RAM                                               │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ Total Instances: 24                                                             │
+│                                                                                 │
+│ Instance Breakdown:                                                             │
+│   • PRD Charging IMDG CUST (Charging)    : 24 instances                         │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ NODE POOL 8: 8 OCPU / 64 GB RAM                                                │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ Total Instances: 36                                                             │
+│                                                                                 │
+│ Instance Breakdown:                                                             │
+│   • PRD MS360 MSG BUS (MS360)            : 3 instances                          │
+│   • PRD Charging Data Plane (Charging)   : 30 instances                         │
+│   • PRD Charging Data Plane Batch (Chg)  : 3 instances                          │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ NODE POOL 9: 8 OCPU / 128 GB RAM                                               │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ Total Instances: 3                                                              │
+│                                                                                 │
+│ Instance Breakdown:                                                             │
+│   • PRD Charging PG DB (Charging)        : 3 instances                          │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+
+RESOURCE SUMMARY BY NODE POOL
+------------------------------
+Node Pool | OCPU | RAM(GB) | Instances | Total OCPU | Total RAM(GB)
+----------|------|---------|-----------|------------|---------------
+Pool 1    | 1    | 8       | 2         | 2          | 16
+Pool 2    | 2    | 8       | 3         | 6          | 24
+Pool 3    | 2    | 16      | 4         | 8          | 64
+Pool 4    | 2    | 32      | 13        | 26         | 416
+Pool 5    | 4    | 32      | 3         | 12         | 96
+Pool 6    | 4    | 64      | 5         | 20         | 320
+Pool 7    | 4    | 128     | 24        | 96         | 3,072
+Pool 8    | 8    | 64      | 36        | 288        | 2,304
+Pool 9    | 8    | 128     | 3         | 24         | 384
+----------|------|---------|-----------|------------|---------------
+TOTAL     |      |         | 93        | 482        | 6,696
+
+
+DOMAIN DISTRIBUTION ACROSS NODE POOLS
+--------------------------------------
+MS360 Domain     : 19 instances across Pools 1, 2, 3, 5, 6, 8
+OPS Domain       : 2 instances across Pools 3, 4
+Charging Domain  : 72 instances across Pools 4, 7, 8, 9
+
+
+RECOMMENDATIONS
+---------------
+1. Node Pool 8 (8 OCPU / 64 GB) is the largest with 36 instances - consider splitting 
+   by domain (MS360 MSG BUS vs Charging Data Plane workloads) if isolation is needed
+
+2. Node Pool 7 (4 OCPU / 128 GB) has high memory requirements for IMDG CUST - 
+   ensure adequate node capacity (24 instances with 128GB RAM each)
+
+3. Pool 9 (8 OCPU / 128 GB) is specialized for Charging PG DB with very high resources -
+   monitor database performance and adjust if needed
+
+4. Consider consolidating Pool 1 (1 OCPU / 8 GB) and Pool 2 (2 OCPU / 8 GB) 
+   to reduce node pool management overhead if workload permits
+
+5. Pool 4 (2 OCPU / 32 GB) spans multiple domains and services - largest in instance 
+   count for this configuration (13 instances)
+
+6. Charging domain dominates resource usage (77% of instances, majority of OCPU/RAM)
