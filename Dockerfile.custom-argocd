@@ -3,6 +3,11 @@
 
 FROM argoproj/argocd:latest
 
+USER root
+
+# Update apt sources to a supported Ubuntu version if needed
+RUN sed -i 's/impish/jammy/g' /etc/apt/sources.list /etc/apt/sources.list.d/* || true
+
 # Install OCI CLI
 RUN apt-get update && apt-get install -y python3 python3-pip && \
     pip3 install oci-cli && \
