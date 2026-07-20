@@ -1,18 +1,24 @@
 {
   "name": "pod-res-util-agent",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "Cursor SDK agent that runs POD resource utilization scripts and analyzes the report",
+  "description": "POD resource utilization CLI + Cursor SDK agent + MCP server",
   "type": "module",
   "engines": {
     "node": ">=22.13.0"
   },
+  "bin": {
+    "pod-res-util-mcp": "./src/mcp-server.ts"
+  },
   "scripts": {
     "agent": "tsx src/index.ts",
-    "analyze": "tsx src/index.ts --analyze-only"
+    "analyze": "tsx src/index.ts --analyze-only",
+    "mcp": "tsx src/mcp-server.ts"
   },
   "dependencies": {
-    "@cursor/sdk": "^1.0.23"
+    "@cursor/sdk": "^1.0.23",
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.24.0"
   },
   "devDependencies": {
     "@types/node": "^22.13.0",

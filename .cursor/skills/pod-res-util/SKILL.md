@@ -2,12 +2,12 @@
 name: pod-res-util
 description: >-
   Runs and interprets A1 TC Kubernetes POD / NodePool resource utilization
-  reports using pod_res_util_agent.sh, pod_multicloud_resource_utilization.sh,
-  and pod_aks_resource_utilization_html.sh. Use when the user asks about pod
-  resource utilization, agent pool or node pool capacity, schedulable vs idle
-  CPU/memory, pool pressure, pending pods, over-provisioned containers,
-  rightsizing requests, multi-cloud (AKS EKS GKE OKE OCP) utilization, or the
-  POD RES UTIL HTML email report.
+  reports using MCP tools (pod-res-util), pod_res_util_agent.sh,
+  pod_multicloud_resource_utilization.sh, and pod_aks_resource_utilization_html.sh.
+  Use when the user asks about pod resource utilization, agent pool or node pool
+  capacity, schedulable vs idle CPU/memory, pool pressure, pending pods,
+  over-provisioned containers, rightsizing requests, multi-cloud (AKS EKS GKE
+  OKE OCP) utilization, MCP pod-res-util tools, or the POD RES UTIL HTML email report.
 ---
 
 # POD Resource Utilization
@@ -20,14 +20,25 @@ Apply this skill whenever the user wants capacity, pressure, pending-pod, or rig
 
 | Tool | Path | Role |
 |------|------|------|
+| MCP server | `agent/src/mcp-server.ts` (`.cursor/mcp.json`) | Prefer when MCP `pod-res-util` is enabled |
 | CLI orchestrator | `pod_res_util_agent.sh` | Chooses AKS HTML vs multi-cloud; writes `reports/` |
 | Multi-cloud text | `pod_multicloud_resource_utilization.sh` | AKS/EKS/GKE/OKE/OCP text tables |
 | AKS HTML | `pod_aks_resource_utilization_html.sh` | Styled HTML (+ optional email) |
-| Cursor SDK agent | `agent/` | Runs orchestrator then AI analysis (`CURSOR_API_KEY`) |
+| Cursor SDK agent | `agent/` | CLI AI analysis (`CURSOR_API_KEY`) |
 
 ## How to run
 
-### 1. Default (auto mode)
+### 0. Prefer MCP tools (when available)
+
+Use MCP server **pod-res-util**:
+
+1. `run_pod_resource_report` — namespaces + mode (`multicloud` / `aks-html` / `both` / `auto`), `no_email=true`
+2. Optionally `build_pod_resource_analysis_prompt` or analyze the returned `report_text`
+3. `list_pod_resource_reports` / `read_pod_resource_report` for prior runs
+
+Do not send email unless the user asks (`no_email` stays true).
+
+### 1. Default CLI (auto mode)
 
 ```bash
 bash ./pod_res_util_agent.sh <namespace> [namespace...]
@@ -88,7 +99,7 @@ Explain these columns clearly to the user:
 
 ## Agent behavior rules
 
-1. Prefer `pod_res_util_agent.sh` over calling child scripts directly unless the user asks for one script.
+1. Prefer MCP `run_pod_resource_report` when the pod-res-util MCP server is connected; else `pod_res_util_agent.sh`. Do not call child scripts directly unless asked.
 2. Default to `--no-email` / `SEND_EMAIL=false` unless the user explicitly wants email sent.
 3. Do not invent metrics; only cite numbers from the report output.
 4. After a run, point the user to files under `reports/` (`.txt`, `.html`, `.summary.md`).

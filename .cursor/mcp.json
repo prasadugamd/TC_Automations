@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "pod-res-util": {
+      "command": "npm",
+      "args": ["run", "mcp"],
+      "cwd": "agent",
+      "env": {
+        "SEND_EMAIL": "false"
+      }
+    }
+  }
+}
