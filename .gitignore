@@ -1,0 +1,5 @@
+reports/
+agent/node_modules/
+agent/dist/
+agent/package-lock.json
+*.log
