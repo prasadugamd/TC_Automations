@@ -1,6 +1,6 @@
 # POD Resource Utilization Agent
 
-Four layers work together:
+Four layers work together (Innoverse pilot **v1.1.0**):
 
 | Layer | Path | Purpose |
 |-------|------|---------|
@@ -8,6 +8,8 @@ Four layers work together:
 | **Cursor SDK agent** | `npm run agent` | Collects report + AI recommendations |
 | **MCP server** | `npm run mcp` | Exposes tools to Cursor / MCP hosts |
 | **Cursor Skill** | `../.cursor/skills/pod-res-util/` | Teaches the IDE agent the workflow |
+
+Stakeholder docs: [../docs/INNOVERSE.md](../docs/INNOVERSE.md) · [../docs/DEMO_SCRIPT.md](../docs/DEMO_SCRIPT.md)
 
 ## Prerequisites
 

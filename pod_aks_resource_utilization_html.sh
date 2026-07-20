@@ -16,10 +16,11 @@
 # Usage:
 #   ./pod_resource_utilization_html.sh <namespace1> [<namespace2> ...]
 #   HTML=/path/to/out.html ./pod_resource_utilization_html.sh pet01-k8s
+#   SEND_EMAIL=true ./pod_resource_utilization_html.sh pet01-k8s         # opt-in email
+#   SEND_EMAIL=false ./pod_resource_utilization_html.sh pet01-k8s        # default: never email
 #   DRY_RUN=true ./pod_resource_utilization_html.sh pet01-k8s            # generate but don't send
-#   SEND_EMAIL=false ./pod_resource_utilization_html.sh pet01-k8s        # never email
 #   PRESSURE_THRESHOLD_PCT=25 TOP_WASTERS=25 ./pod_resource_utilization_html.sh pet01-k8s
-#   ENV_NAME=PROD MAIL_TO="ops@example.com" ./pod_resource_utilization_html.sh pet01-k8s
+#   ENV_NAME=PROD MAIL_TO="ops@example.com" SEND_EMAIL=true ./pod_resource_utilization_html.sh pet01-k8s
 
 SCRIPT_OWNER="Prasadu Gamini"
 SCRIPT_OWNER_EMAIL="prasadu.gamini@extern.A1.at"
@@ -37,7 +38,8 @@ MAIL_FROM="${MAIL_FROM:-prasadu.gamini@extern.A1.at}"
 MAIL_TO="${MAIL_TO:-prasadu.gamini@extern.A1.at;branislav.kanocz@extern.a1.at;branislav.kanocz@amdocs.com;Prasadu.Gamini@amdocs.com}"
 MAIL_SUBJECT_PREFIX="${MAIL_SUBJECT_PREFIX:-[TC ${ENV_NAME}] A1 Austria POD RESOURCE UTIL Report}"
 DRY_RUN="${DRY_RUN:-false}"
-SEND_EMAIL="${SEND_EMAIL:-true}"
+# Innoverse / stakeholder-safe: email is opt-in
+SEND_EMAIL="${SEND_EMAIL:-false}"
 HR_START="$(date '+%Y-%m-%d %H:%M %Z')"
 HTML="${HTML:-/tmp/pod_res_util_$(date +%Y%m%d_%H%M%S).html}"
 OVERALL="OK"

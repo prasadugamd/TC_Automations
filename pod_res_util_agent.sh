@@ -25,7 +25,7 @@ AKS_HTML_SCRIPT="${SCRIPT_DIR}/pod_aks_resource_utilization_html.sh"
 MULTI_SCRIPT="${SCRIPT_DIR}/pod_multicloud_resource_utilization.sh"
 
 MODE="auto"
-NO_EMAIL=0
+NO_EMAIL=1   # Innoverse-safe: email off unless --send-email
 NAMESPACES=()
 OUT_DIR="${OUT_DIR:-${SCRIPT_DIR}/reports}"
 TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
@@ -36,7 +36,8 @@ Usage: pod_res_util_agent.sh [options] <namespace> [namespace...]
 
 Options:
   --mode auto|aks-html|multicloud|both   Report mode (default: auto)
-  --no-email                             Force SEND_EMAIL=false for HTML report
+  --no-email                             Keep email disabled (default)
+  --send-email                           Opt-in: allow HTML email (SEND_EMAIL=true)
   --out-dir DIR                          Report output directory (default: ./reports)
   -h, --help                             Show this help
 
@@ -47,8 +48,9 @@ Modes:
   both         Run both scripts
 
 Examples:
-  ./pod_res_util_agent.sh pet01-k8s
-  ./pod_res_util_agent.sh --mode multicloud --no-email ns-a ns-b
+  ./pod_res_util_agent.sh --mode multicloud pet01-k8s
+  ./pod_res_util_agent.sh --mode aks-html pet01-k8s
+  ./pod_res_util_agent.sh --mode both --send-email pet01-k8s
   KUBE_CMD=oc ./pod_res_util_agent.sh --mode multicloud openshift-monitoring
   POOL_LABEL_KEYS=a1.at/node-pool ./pod_res_util_agent.sh --mode both my-ns
 EOF
@@ -89,6 +91,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --no-email)
       NO_EMAIL=1
+      shift
+      ;;
+    --send-email)
+      NO_EMAIL=0
       shift
       ;;
     --out-dir)
@@ -142,6 +148,8 @@ fi
 
 if [[ "$NO_EMAIL" -eq 1 ]]; then
   export SEND_EMAIL=false
+else
+  export SEND_EMAIL=true
 fi
 
 TEXT_OUT="${OUT_DIR}/pod_res_util_${TIMESTAMP}.txt"
